@@ -6,17 +6,17 @@
   # ide menu
   # search menu
 
-def main_menu
-  puts "***************** My Cheatsheet for Ruby ******************"
-  puts "Select a Choice:"
-  puts "1: Command Line Cheatsheet"
-  puts "2: Sublime Cheatsheet"
-  puts "3: Search menu"
-  puts "4: Exit"
-  puts "Make your selection with #"
-  puts "***********************************************************"
-  @num = gets.to_i
-end
+# def main_menu
+#   puts "***************** My Cheatsheet for Ruby ******************"
+#   puts "Select a Choice:"
+#   puts "1: Command Line Cheatsheet"
+#   puts "2: Sublime Cheatsheet"
+#   puts "3: Search menu"
+#   puts "4: Exit"
+#   puts "Make your selection with #"
+#   puts "***********************************************************"
+#   @num = gets.to_i
+# end
 
 
 # def method_commandmenu
@@ -63,76 +63,25 @@ end
 #         puts "--Exit--
 #         type cd ~"
 #       else
-#         puts "Hey poop for brains pick 1-4"
+#         puts "Not a command"
 #     end
 #   end
 # end
 
-
-
-def method_nav
-  case @num
-    when 1
-      method_com
-    when 2
-      sub_menu
-    when 3
-      method_com
-    when 4
-      method_exit
-    else
-      puts "Not a valid entry"
-      main_menu
-      method_nav
-  end
-end
-
-def sub_menu
-  puts "---Sublime Cheatsheet---:
-        command s = save,
-        option command s = save all,
-        command question mark = comment out,
-
-        --- Pick 1 or 2----
-        1: Main Menu
-        2: Exit"
-        @cho = gets.to_i
-  case @cho
-    when 1
-      main_menu
-      method_nav
-    when 2
-      exit 0
-  end
-end
-
-def method_com
-  puts "        1: Search
-        2: Main Menu"
-        @silly = gets.to_i
-  case @silly
-    when 1
-      search_man
-    when 2
-      main_menu
-      method_nav
-  end
-end
-
-
-def method_exit
-  exit 0
-end
-
-def search_man
-  puts"*** Search ***"
-  puts`man #{gets.strip}`
-  method_com
-end
-
-
-main_menu
-method_nav
+  # case @num
+  #   when 1
+  #     method_com
+  #   when 2
+  #     sub_menu
+  #   when 3
+  #     method_com
+  #   when 4
+  #     method_exit
+  #   else
+  #     puts "Not a valid entry"
+  #     main_menu
+  #     method_nav
+  # end
 
 
 
@@ -140,4 +89,113 @@ method_nav
 # method_exit
 # method_commandmenu
 # method_command
+
+
+
+
+def method_com
+  puts "        1: Search
+        2: Main Menu
+        3: Exit"
+        @silly = gets.to_i
+  case @silly
+    when 1
+      search_man
+    when 2
+      method_nav
+    when 3
+      exit 0
+  end
+end
+
+def sub_menu
+  puts "---Sublime Cheatsheet---:
+
+        command s = save,
+
+        option command s = save all,
+
+        command question mark = comment out,
+
+        controll commmand arrows = move lines,
+
+        command arrows = navigates to edge of lines
+        (side to side), and top and bottom of page
+        (up and down)
+
+        option arrows = navigates to end of word or
+        begining of word, it jumps over the word.
+
+        --- Pick 1 or 2----
+        1: Main Menu
+        2: Exit
+        3: Read something Silly"
+        @cho = gets.to_i
+  case @cho
+    when 1
+      @menu
+    when 2
+      exit 0
+    when 3
+      squid = {Name: 'Squidward', House: "Easter Island head", Shirt: "brown", Nose: "Too big, will never fit in"}
+      squid.each do |key, value|
+        puts "#{key} #{value}"
+      end
+  end
+end
+
+
+
+def method_exit
+  exit 0
+end
+
+def search_man
+  puts"************ Search ************"
+  puts`man #{gets.strip}`
+  method_com
+end
+
+
+m_com = -> { method_com }
+s_menu = -> { sub_menu }
+m_exit = -> { method_exit }
+
+@menu = {
+  main:
+   { '--------WELCOME TO MY CHEATSHEET' => '-------',
+     '1' => 'Command Line Cheatsheet---',
+     '2' => 'Sublime Cheatsheet---',
+     '3' => 'Search----',
+     '4' => 'Quit---'
+    },
+  command_line:
+    {'1' => m_com,
+     '2' => s_menu,
+     '3' => m_com,
+     '4' => m_exit
+    }
+}
+
+def method_nav
+  @menu[:main].each do |key, value|
+    puts "# #{key} --- takes you to #{value}"
+  end
+  @num = gets.strip
+  main_menu_selection = @menu[:main][@num]
+
+  command_line_menu_selection = @menu[:command_line][@num].call
+
+  main_menu_selection
+
+  command_line_menu_selection
+end
+
+method_nav
+
+
+
+
+
+
 
