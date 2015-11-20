@@ -126,7 +126,7 @@ def sub_menu
         option arrows = navigates to end of word or
         begining of word, it jumps over the word.
 
-        --- Pick 1 or 2----
+        --- Pick 1 or 2 or 3---
         1: Main Menu
         2: Exit
         3: Read something Silly"
